@@ -6,20 +6,22 @@
             fnc: null,
             val: 'elementVal',
             focus: undefined,
-            keyup: function(event) {
+            keypress: function(event) {
                 var ENTER_KEY_CODE = 13;
                 var ESC_KEY_CODE = 27;
-                if (event.keyCode == ENTER_KEY_CODE) {
+                var TAB_KEY_CODE = 9;
+                if (event.keyCode == ENTER_KEY_CODE 
+                    || event.keyCode == TAB_KEY_CODE) {
                     var newVal = this.$html.val();
                     this.$element.html(newVal);
-                    if(this.fnc !== undefined) {                        
+                    if(this.fnc !== undefined) {
                         this.fnc.call(this.$element, newVal);
                     }
                     this.$html.replaceWith(this.$element);
                     event.preventDefault();
                 } else if (event.keyCode == ESC_KEY_CODE) {
                    this.$html.replaceWith(this.$element);
-                }            
+                }
             },
             focusout: function() {
                 this.$html.replaceWith(this.$element);
