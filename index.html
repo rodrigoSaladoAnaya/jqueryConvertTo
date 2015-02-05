@@ -7,58 +7,73 @@
 <!--script type="text/javascript" src="https://raw.githubusercontent.com/rodrigoSaladoAnaya/jqueryConvertTo/master/jquery.convert.to.js"></script-->
 <script>
 $(document).ready(function(){	
-	$("body").on("dblclick", "#test1", (function(){
-		$(this).convertTo(
-			"<input type='text'>", 
-			function(val) {
-				console.log("new val: " + val);
+	var selectHtml1 = '<select multiple="multiple" style="width: 100%;">' +
+		'	<option value="Volvo">Volvo</option>' +
+		'	<option value="Saab">Saab</option>' +
+		'	<option value="Mercedes">Mercedes</option>' +
+		'	<option value="Audi">Audi</option>' +
+		'</select>';
+	var selectHtml2 = '<select>' +
+		'	<option value="Volvo">Volvo</option>' +
+		'	<option value="Saab">Saab</option>' +
+		'	<option value="Mercedes">Mercedes</option>' +
+		'	<option value="Audi">Audi</option>' +
+		'</select>';
+	var inputHtml = '<input type="text">';
+	
+	$("table").on("dblclick", "#test1 div", (function(){
+		$(this).convertTo(inputHtml);
+	}));
+
+	$("table").on("click", "#test2 div", (function(){
+		$(this).convertTo(inputHtml, function(val) {
+				console.log("the new value is '" + val + "'");
 			}
 		);
 	}));
 
-	$("body").on("dblclick", "#test2", (function(){
-		$(this).convertTo(
-			'<select>' +
-			'	<option value="Volvo">Volvo</option>' +
-			'	<option value="Saab">Saab</option>' +
-			'	<option value="Mercedes">Mercedes</option>' +
-			'	<option value="Audi">Audi</option>' +
-			'</select>', function(val) {
-				console.log("new val: " + val);
-			}
-		);
-	}));
-
-	$("body").on("dblclick", "#test3", (function(){
-		$(this).convertTo(
-			'<select multiple="multiple">' +
-			'	<option value="Volvo">Volvo</option>' +
-			'	<option value="Saab">Saab</option>' +
-			'	<option value="Mercedes">Mercedes</option>' +
-			'	<option value="Audi">Audi</option>' +
-			'</select>', function(val) {
-				console.log("new val: " + val);
-			}, {
+	$("table").on("dblclick", "#test3 div", (function(){
+		$(this).convertTo(selectHtml1, undefined, {
 				click: function() {
 					var newVal = this.$html.val();
-	                this.$elem.html(newVal);
+	                this.$element.html(newVal);
 	                if(this.fnc !== undefined) {
-	                    this.fnc.call(this.$elem, newVal);
+	                    this.fnc.call(this.$element, newVal);
 	                }
-	                this.$html.replaceWith(this.$elem);                
+	                this.$html.replaceWith(this.$element);                
 				}
 			}
 		);
 	}));
+
+	$("table").on("click", "#test4 div", (function(){
+		$(this).convertTo(selectHtml2, undefined, {
+				mouseout: function() {
+					var newVal = this.$html.val();
+					console.log(newVal);
+				}, 
+				focusout: null
+			}
+		);
+	}));	
 });
 </script>
 
 </head>
 <body>
-	<div id="test1">Double click all to test.</div>
-	<br>
-	<div id="test2">Saab</div>
-	<br>
-	<div id="test3">Audi</div>
+	<table border="1">
+		<tr>			
+			<th>Double click</th>
+			<th>One click</th>
+		</tr>
+		<tr>
+			<td id="test1"><div>Hello wordl!</div></td>
+			<td id="test2"><div>Hello wordl!</div></td>
+		</tr>
+		<tr>
+			<td id="test3"><div>Volvo</div></td>
+			<td id="test4"><div>Saab</div></td>
+		</tr>
+	</table>
 </body>
 </html>

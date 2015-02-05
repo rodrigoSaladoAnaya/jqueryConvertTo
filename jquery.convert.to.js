@@ -1,67 +1,70 @@
 (function($){
-
-    $.fn.convertTo = function (html, fnc, defaultFncs) {
-        var $html = $(html);
-        var htmlType = $html.prop('tagName')
-                            .toLowerCase();
-        var $elem = $(this).replaceWith($html);
-        var elemVal = $elem.html();
-
-        if(defaultFncs !== undefined) {
-            $.extend(
-                $.fn.convertTo.defaults,
-                defaultFncs
-            );
-        }
-
-        if($html.is(':input') || $html.is(':select')) {
-            $.each($.fn.convertTo.defaults, function(k, f){
-                if(f === undefined) {
-                    $html[k]();
-                } else if(typeof f === 'function') {
-                    var nf = f.bind({
-                        $html: $html,
-                        $elem: $elem,
-                        fnc: fnc
-                    });
-                    $html.on(k, nf)
-                } else {
-                    var isKeyword = k === '$html' 
-                                    || k === '$elem' 
-                                    || k === 'fnc';
-                    if(!isKeyword){                        
-                        try {
-                            $html[k](eval(f));
-                        } catch(e) {
-                            $html[k](f);
-                        }    
+    $.convertTo = function(element, html, fnc, options) {
+        var defaults = {
+            $html: null, 
+            $element: null,
+            fnc: null,
+            val: 'elementVal',
+            focus: undefined,
+            keyup: function(event) {
+                var ENTER_KEY_CODE = 13;
+                var ESC_KEY_CODE = 27;
+                if (event.keyCode == ENTER_KEY_CODE) {
+                    var newVal = this.$html.val();
+                    this.$element.html(newVal);
+                    if(this.fnc !== undefined) {                        
+                        this.fnc.call(this.$element, newVal);
                     }
-                }
-            });
-        }        
-    }
-    
-    $.fn.convertTo.defaults = {
-        $html: null, 
-        $elem: null,
-        fnc: null,
-        val: 'elemVal',
-        focus: undefined,
-        keyup: function(event) {
-            if (event.keyCode == 13) { //Intro
-                var newVal = this.$html.val();
-                this.$elem.html(newVal);
-                if($fnc !== undefined) {
-                    $fnc.call(this.$elem, newVal);
-                }
-                this.$html.replaceWith(this.$elem);
-                event.preventDefault();
-            } else if (event.keyCode == 27) { //Esc
-               $html.replaceWith(this.$elem);
-            }            
-        },
-        focusout: function() {
-            this.$html.replaceWith(this.$elem);
+                    this.$html.replaceWith(this.$element);
+                    event.preventDefault();
+                } else if (event.keyCode == ESC_KEY_CODE) {
+                   this.$html.replaceWith(this.$element);
+                }            
+            },
+            focusout: function() {
+                this.$html.replaceWith(this.$element);
+            }
         }
+
+        var plugin = this;
+        plugin.settings = {}
+
+        plugin.init = function() {
+            plugin.settings = $.extend(true, defaults, options);
+            var $html = $(html);            
+            var $element = $(element).replaceWith($html);
+            var elementVal = $element.html();            
+            if($html.is(':input') || $html.is(':select')) {
+                $.each(plugin.settings, function(k, f){
+                    if(f === undefined) {
+                        $html[k]();
+                        return                        
+                    } else if(typeof f === 'function') {
+                        var nf = f.bind({
+                            $html: $html,
+                            $element: $element,
+                            fnc: fnc
+                        });
+                        $html.on(k, nf);
+                    } else {
+                        var isKeyword = k === '$html' 
+                                        || k === '$element' 
+                                        || k === 'fnc';
+                        if(!isKeyword && f != null){                                             
+                            try {
+                                $html[k](eval(f));
+                            } catch(e) {
+                                $html[k](f);
+                            }    
+                        }
+                    }
+                });
+            }        
+        }
+        plugin.init();
+    }
+
+    $.fn.convertTo = function(html, fnc, options) {
+        var plugin = new $.convertTo(this, html, fnc, options);
     }
 })(jQuery);
