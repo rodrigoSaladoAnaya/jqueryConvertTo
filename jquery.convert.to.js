@@ -5,7 +5,14 @@
         var htmlType = $html.prop('tagName')
                             .toLowerCase();
         var $elem = $(this).replaceWith($html);
-        var elemVal = $elem.html();        
+        var elemVal = $elem.html();
+
+        if(defaultFncs !== undefined) {
+            $.extend(
+                $.fn.convertTo.defaults,
+                defaultFncs
+            );
+        }
                 
         if(htmlType == 'input' || htmlType == 'select') {
             $.each($.fn.convertTo.defaults, function(k, f){
