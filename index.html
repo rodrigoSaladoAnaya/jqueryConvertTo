@@ -1,0 +1,65 @@
+<html>
+<head>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="https://github.com/rodrigoSaladoAnaya/jqueryConvertTo/blob/master/jquery.convert.to.js"></script>
+<script>
+$(document).ready(function(){
+	$("body").on("dblclick", "#test1", (function(){
+		$(this).convertTo(
+			"<input type='text'>", 
+			function(val) {
+				console.log("new val: " + val);
+			}
+		);
+	}));
+
+	$("body").on("dblclick", "#test2", (function(){
+		$(this).convertTo(
+			'<select>' +
+			'	<option value="Volvo">Volvo</option>' +
+			'	<option value="Saab">Saab</option>' +
+			'	<option value="Mercedes">Mercedes</option>' +
+			'	<option value="Audi">Audi</option>' +
+			'</select>', function(val) {
+				console.log("new val: " + val);
+			}
+		);
+	}));
+
+	$("body").on("dblclick", "#test3", (function(){
+		$(this).convertTo(
+			'<select multiple="multiple">' +
+			'	<option value="Volvo">Volvo</option>' +
+			'	<option value="Saab">Saab</option>' +
+			'	<option value="Mercedes">Mercedes</option>' +
+			'	<option value="Audi">Audi</option>' +
+			'</select>', function(val) {
+				console.log("new val: " + val);
+			}, {
+				click: function() {
+					$html = $.fn.convertTo.$html;
+            		$elem = $.fn.convertTo.$elem;
+            		fnc = $.fn.convertTo.fnc;
+					var newVal = $html.val();
+	                $elem.html(newVal);
+	                if(fnc !== undefined) {
+	                    fnc.call($elem, newVal);
+	                }
+	                $html.replaceWith($elem);
+				}
+			}
+		);
+	}));
+});
+</script>	
+</head>
+<body>
+	<i>Double click all the tests:</i>
+	<br><br>
+	<div id="test1">Double click me!</div>
+	<br>
+	<div id="test2">Saab</div>
+	<br>
+	<div id="test3">Audi</div>
+</body>
+</html>
