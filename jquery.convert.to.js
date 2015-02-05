@@ -38,7 +38,6 @@
                 $.each(plugin.settings, function(k, f){
                     if(f === undefined) {
                         $html[k]();
-                        return                        
                     } else if(typeof f === 'function') {
                         var nf = f.bind({
                             $html: $html,
