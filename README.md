@@ -51,14 +51,16 @@ $(this).convertTo(inputHtml, function(inputVal) {
 );
 ```
 If you want to overwrite a function or add a new one, just add the function name and the necessary function. To get the the ```div``` element use ```this.$element```, to get the input element use ```this.$html``` and to get the function that is executed after INTRO_KEY use ```this.fnc```, to more info take a look to ```$.convertTo.defaults.keyup```:
+```javascript
 $(this).convertTo(inputHtml, function(inputVal) {
 		console.log(inputVal);
 	}, {
 		select: undefined,
 		focusout: null,
 		dblclick: function() {
-    	var newVal = this.$html.val();
-	    alert(newVal);					
+			var newVal = this.$html.val();
+			alert(newVal);					
 		}
 	}
 );
+```
