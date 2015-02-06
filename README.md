@@ -40,7 +40,7 @@ $(this).convertTo(inputHtml, function(inputVal) {
 	}
 );
 ```
-If you want to remove one default function, do something like the next snippet. Set as ```null``` the default function, [test](http://rodrigosaladoanaya.github.io/jqueryConvertTo/simpleTest4.html):
+If you want to remove one default function, do something like the next snippet. Set as ```null``` the default function, use ESC_KEY to return to ```div```, [test](http://rodrigosaladoanaya.github.io/jqueryConvertTo/simpleTest4.html):
 ```javascript
 $(this).convertTo(inputHtml, function(inputVal) {
 		console.log(inputVal);
