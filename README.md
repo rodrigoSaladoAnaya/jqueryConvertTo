@@ -3,7 +3,7 @@ Transform any jQuery element into another element, i.e: convert a ```<div>``` in
 
 [Demo](http://rodrigosaladoanaya.github.io/jqueryConvertTo/index.html)
 
-[Examples](https://github.com/rodrigoSaladoAnaya/jqueryConvertTo/blob/master/index.html):
+[Examples](https://github.com/rodrigoSaladoAnaya/jqueryConvertTo/blob/master/index.html)  or follows the next simple  but illustrative example:
 ```javascript
 $("body").on('click', 'div', function() {
 	$(this).convertTo('<input type="text">');
