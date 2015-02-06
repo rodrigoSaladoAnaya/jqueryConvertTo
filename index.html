@@ -2,7 +2,7 @@
 <html>
 <head>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js"></script>
-<script type="text/javascript" src="https://cdn.rawgit.com/rodrigoSaladoAnaya/jqueryConvertTo/a2851550f3129786d64c88cb0046375aadc26953/jquery.convert.to.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/rodrigoSaladoAnaya/jqueryConvertTo/a68e8b18378c9fe80f96ed6b3f539ccde05ec5b6/jquery.convert.to.js"></script>
 <script>
 $(document).ready(function(){	
 	var selectHtml1 = '<select multiple="multiple" style="width: 100%;">' +
@@ -25,7 +25,9 @@ $(document).ready(function(){
 
 	$("table").on("click", "#test2 div", (function(){
 		$(this).convertTo(inputHtml, function(val) {
-				console.log("the new value is '" + val + "'");
+				$("#log").append("the new value is '" + val + "'<br>");
+			}, {
+				select: undefined
 			}
 		);
 	}));
@@ -48,7 +50,7 @@ $(document).ready(function(){
 		$(this).convertTo(selectHtml2, undefined, {
 				mouseout: function() {
 					var newVal = this.$html.val();
-					console.log(newVal);
+					$("#log").append("the value in mouseout is '" + newVal + "'<br>");
 				}, 
 				focusout: null
 			}
@@ -62,7 +64,7 @@ $(document).ready(function(){
 	<table border="1">
 		<tr>			
 			<th>Double click</th>
-			<th>One click</th>
+			<th>One click (with log)</th>
 		</tr>
 		<tr>
 			<td id="test1"><div>Hello wordl!</div></td>
@@ -73,5 +75,8 @@ $(document).ready(function(){
 			<td id="test4"><div>Saab</div></td>
 		</tr>
 	</table>
+	<br>
+	<strong>Log:</strong>
+	<div id="log"></div>
 </body>
 </html>
