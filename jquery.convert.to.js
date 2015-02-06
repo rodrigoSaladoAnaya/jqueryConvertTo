@@ -30,9 +30,9 @@
 
         plugin.init = function() {
             if(options !== undefined)
-            $.each(options, function(k, f) {
-                defaults[k] = f
-            });
+                $.each(options, function(k, f) {
+                    defaults[k] = f
+                });
             var $html = $(html);            
             var $element = $(element).replaceWith($html);
             var elementVal = $element.html();            
