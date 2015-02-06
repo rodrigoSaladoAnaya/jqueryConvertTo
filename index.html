@@ -27,7 +27,9 @@ $(document).ready(function(){
 
 	$("table").on("click", "#test2 div", (function(){
 		$(this).convertTo(inputHtml, function(val) {
-				console.log("the new value is '" + val + "'");
+				$("#log").append("the new value is '" + val + "'<br>");
+			}, {
+				select: undefined
 			}
 		);
 	}));
@@ -50,7 +52,7 @@ $(document).ready(function(){
 		$(this).convertTo(selectHtml2, undefined, {
 				mouseout: function() {
 					var newVal = this.$html.val();
-					console.log(newVal);
+					$("#log").append("the value in mouseout is '" + newVal + "'<br>");
 				}, 
 				focusout: null
 			}
@@ -64,7 +66,7 @@ $(document).ready(function(){
 	<table border="1">
 		<tr>			
 			<th>Double click</th>
-			<th>One click</th>
+			<th>One click (with log)</th>
 		</tr>
 		<tr>
 			<td id="test1"><div>Hello wordl!</div></td>
@@ -75,5 +77,8 @@ $(document).ready(function(){
 			<td id="test4"><div>Saab</div></td>
 		</tr>
 	</table>
+	<br>
+	<strong>Log:</strong>
+	<div id="log"></div>
 </body>
 </html>

@@ -29,15 +29,17 @@
         }
 
         var plugin = this;
-        plugin.settings = {}
 
         plugin.init = function() {
-            plugin.settings = $.extend(true, defaults, options);
+            if(options !== undefined)
+            $.each(options, function(k, f) {
+                defaults[k] = f
+            });
             var $html = $(html);            
             var $element = $(element).replaceWith($html);
             var elementVal = $element.html();            
             if($html.is(':input') || $html.is(':select')) {
-                $.each(plugin.settings, function(k, f){
+                $.each(defaults, function(k, f){
                     if(f === undefined) {
                         $html[k]();
                     } else if(typeof f === 'function') {
