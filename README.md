@@ -1,4 +1,4 @@
-# jqueryConvertTo
+# $.convertTo
 Transform any jQuery element into another element, i.e: convert a div tag to input tag.
 
 [Demo](http://rodrigosaladoanaya.github.io/jqueryConvertTo/index.html)
