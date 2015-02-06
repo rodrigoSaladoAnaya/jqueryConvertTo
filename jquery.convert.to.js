@@ -6,12 +6,11 @@
             fnc: null,
             val: 'elementVal',
             focus: undefined,
-            keypress: function(event) {
+            keyup: function(event) {
                 var ENTER_KEY_CODE = 13;
                 var ESC_KEY_CODE = 27;
-                var TAB_KEY_CODE = 9;
-                if (event.keyCode == ENTER_KEY_CODE 
-                    || event.keyCode == TAB_KEY_CODE) {
+                console.log(event);
+                if (event.keyCode == ENTER_KEY_CODE) {
                     var newVal = this.$html.val();
                     this.$element.html(newVal);
                     if(this.fnc !== undefined) {
